@@ -1,14 +1,13 @@
-import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';  // Import Link for navigation
 
 function AdminLogin() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { isadminauthenticated,adminuser,fetchAdmindata } = useAuth();
+  const { isadminauthenticated, adminuser, fetchAdmindata } = useAuth();
 
   useEffect(() => {
     const token = localStorage.getItem('token-admin');
@@ -25,7 +24,7 @@ function AdminLogin() {
         }
       }
     };
-   
+
     fetchadmindata();
   }, []);
 
@@ -45,49 +44,68 @@ function AdminLogin() {
       }
       const data = await response.json();
       localStorage.setItem('token-admin', data.token);
-      navigate('/admin/dashboard'); 
+      navigate('/admin/dashboard');
     } catch (error) {
       console.error(error);
-      alert('Refer ayush121314 Github outpass repository  to get id and password');
+      alert('Refer ayush121314 Github outpass repository to get id and password');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Admin Login</h2>
+    <div
+      className="w-screen min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex items-center justify-center px-4"
+      style={{
+        backgroundSize: 'cover',
+        backgroundPosition: 'center -50px',
+        backgroundRepeat: 'no-repeat',
+        backgroundImage: `url('https://images.careerindia.com/college-photos/8668/lnmiitj-campus-2_1463030478.jpg')`,
+      }}
+    >
+      <div
+        className="bg-gray-900 bg-opacity-90 rounded-3xl shadow-2xl w-full max-w-md p-10"
+        style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+      >
+        <h2 className="text-3xl font-bold text-center text-white mb-8 relative inline-block ml-20 ">
+          Admin Login
+        </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <div className="mb-6">
+            <label
+              htmlFor="email"
+              className="block text-white font-semibold mb-2"
+            >
               Email
             </label>
             <input
               id="email"
               type="email"
-              placeholder="credential -: admin1@gmail.com"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+
+          <div className="mb-8">
+            <label
+              htmlFor="password"
+              className="block text-white font-semibold mb-2"
+            >
               Password
             </label>
             <input
               id="password"
-              placeholder="credential -: admin1password"
               type="password"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl shadow-md transition transform hover:-translate-y-1"
           >
             Login
           </button>
@@ -104,7 +122,6 @@ function AdminLogin() {
       </div>
     </div>
   );
-
 }
 
 export default AdminLogin;

@@ -138,18 +138,37 @@ function StudentLogin() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-purple-100 w-screen h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    <div
+      className="bg-gradient-to-br from-blue-50 to-purple-100 w-screen h-screen flex items-center justify-center"
+      style={{
+        backgroundSize: 'cover',
+        backgroundPosition: 'center -50px',
+        backgroundRepeat: 'no-repeat',
+        backgroundImage: `url('https://images.careerindia.com/college-photos/8668/lnmiitj-campus-2_1463030478.jpg')`,
+      }}
+    >
+      <div
+        className="bg-gray-900 bg-opacity-90 rounded-3xl shadow-2xl w-full max-w-md p-10"
+        style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+      >
         <div className="mb-4 flex">
           <button
             onClick={() => handleSectionToggle('login')}
-            className={`w-1/2 p-2 ${section === 'login' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`w-1/2 p-2 font-semibold rounded-lg transition mr-2 ${
+              section === 'login'
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            }`}
           >
             Login
           </button>
           <button
             onClick={() => handleSectionToggle('register')}
-            className={`w-1/2 p-2 ${section === 'register' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`w-1/2 p-2 font-semibold rounded-lg transition  ${
+              section === 'register'
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            }`}
           >
             Register
           </button>
@@ -157,13 +176,13 @@ function StudentLogin() {
 
         {section === 'login' ? (
           <form onSubmit={handleLoginSubmit}>
-            <h1 className="text-2xl mb-4 text-center">Student Login</h1>
+            <h1 className="text-3xl mb-6 text-center text-white font-bold">Student Login</h1>
             <input
               type="email"
               placeholder="Enter your student email"
               value={email}
               onChange={handleEmailChange}
-              className="w-full p-2 mb-4 border border-gray-300 rounded"
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
             <input
@@ -171,90 +190,100 @@ function StudentLogin() {
               placeholder="Enter your password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full p-2 mb-4 border border-gray-300 rounded"
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
-            {error && <p className="text-red-500">{error}</p>}
-            <button type="submit" className="bg-blue-500 text-white w-full p-2 rounded">
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 transition w-full p-3 rounded-lg font-semibold text-white shadow-md"
+            >
               Login
             </button>
           </form>
+        ) : !otpSent ? (
+          <form onSubmit={handleEmailSubmit}>
+            <h1 className="text-3xl mb-6 text-center text-white font-bold">Register</h1>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={handleNameChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Enter your Roll no"
+              value={Rollno}
+              onChange={handleRollnoChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Enter your student email"
+              value={email}
+              onChange={handleEmailChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 transition w-full p-3 rounded-lg font-semibold text-white shadow-md"
+            >
+              Send OTP
+            </button>
+          </form>
         ) : (
-          !otpSent ? (
-            <form onSubmit={handleEmailSubmit}>
-              <h1 className="text-2xl mb-4 text-center">Register</h1>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={handleNameChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              <input
-                type="text"
-                placeholder="Enter your Roll no"
-                value={Rollno}
-                onChange={handleRollnoChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Enter your student email"
-                value={email}
-                onChange={handleEmailChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              {error && <p className="text-red-500">{error}</p>}
-              <button type="submit" className="bg-blue-500 text-white w-full p-2 rounded">
-                Send OTP
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleOtpSubmit}>
-              <h1 className="text-2xl mb-4 text-center">Enter OTP</h1>
-              <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={handleOtpChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              <input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={handlePasswordChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              <input
-                type="password"
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-              />
-              {error && <p className="text-red-500">{error}</p>}
-              <button type="submit" className="bg-blue-500 text-white w-full p-2 rounded">
-                Verify OTP and Register
-              </button>
-              <button
-                type="button"
-                onClick={handleResendOtp}
-                className="bg-gray-500 hover:bg-blue-400 text-white w-full p-2 rounded mt-4"
-              >
-                Resend OTP
-              </button>
-            </form>
-          )
+          <form onSubmit={handleOtpSubmit}>
+            <h1 className="text-3xl mb-6 text-center text-white font-bold">Enter OTP</h1>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={handleOtpChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={handlePasswordChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              className="w-full p-3 mb-5 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 transition w-full p-3 rounded-lg font-semibold text-white shadow-md"
+            >
+              Verify OTP and Register
+            </button>
+            <button
+              type="button"
+              onClick={handleResendOtp}
+              className="bg-gray-600 hover:bg-blue-600 text-white w-full p-3 rounded-lg mt-4 transition"
+            >
+              Resend OTP
+            </button>
+          </form>
         )}
-        <div className="text-center mt-4">
-          <Link to="/" className="bg-indigo-500 hover:scale-110 hover:bg-indigo-700 rounded-lg text-white p-2  inline-block">
+        <div className="text-center mt-6">
+          <Link
+            to="/"
+            className="bg-indigo-500 hover:scale-110 hover:bg-indigo-700 rounded-lg text-white p-3 inline-block transition"
+          >
             Back to Home
           </Link>
         </div>
